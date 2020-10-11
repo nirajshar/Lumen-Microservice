@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Traits\ApiResponser;
 
 use App\Services\BookService; 
-
+use App\Services\AuthorService; 
 
 class BookController extends Controller
 {    
@@ -19,11 +19,16 @@ class BookController extends Controller
     * The service to consume the Book Miroservice
     */
     public $bookService;
+
+    /*
+    * The service to consume the Author Miroservice
+    */
+    public $authorService;
     
-    public function __construct(BookService $bookService)
+    public function __construct(BookService $bookService, AuthorService $authorService)
     {
         $this->bookService = $bookService;
-        
+        $this->authorService = $authorService;        
     }
 
     public function index()
@@ -33,7 +38,9 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-       return $this->successResponse($this->bookService->createOneBook($request->all(), Response::HTTP_CREATED));
+        $this->authorService->obtainOneAuthor($request->author_id);
+
+        return $this->successResponse($this->bookService->createOneBook($request->all(), Response::HTTP_CREATED));
     }
 
     public function show($book)

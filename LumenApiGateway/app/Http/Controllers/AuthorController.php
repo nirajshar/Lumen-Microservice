@@ -30,8 +30,8 @@ class AuthorController extends Controller
     }
 
     public function store(Request $request)
-    {
-       return $this->successResponse($this->authorService->createOneAuthor($request->all(), Response::HTTP_CREATED));
+    {  
+        return $this->successResponse($this->authorService->createOneAuthor($request->all(), Response::HTTP_CREATED));
     }
 
     public function show($author)

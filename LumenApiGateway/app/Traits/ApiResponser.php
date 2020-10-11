@@ -18,6 +18,6 @@ trait ApiResponser
 
     public function errorMessage($message, $code)
     {
-        return response( $data, $code )->header('Content-Type', 'application/json');
+        return response( $message, $code )->header('Content-Type', 'application/json');
     }
 }
